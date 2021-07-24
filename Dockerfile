@@ -5,15 +5,13 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV DEBCONF_NOWARNINGS=yes
 
 # node.jsと必要なライブラリのインストトール
-RUN apt-get -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false \
-            update -qq && apt-get install -y nodejs postgresql-client \
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client \
             curl apt-transport-https wget
 
 # yarnのインストール
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
       echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-      apt-get -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false \ 
-      update && apt-get install -y yarn
+      apt-get update && apt-get install -y yarn
 
 #aptキャッシュの削除
 RUN rm -rf /var/lib/apt/lists/*

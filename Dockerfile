@@ -17,14 +17,14 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 RUN rm -rf /var/lib/apt/lists/*
 
 # ディレクトリ・ファイルの作成
-RUN mkdir /rails-vue
-WORKDIR /rails-vue
-COPY Gemfile /rails-vue/Gemfile
-COPY Gemfile.lock /rails-vue/Gemfile.lock
+RUN mkdir /app
+WORKDIR /app
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
 
 # gem(Rails6)のインストール
 RUN bundle install
-COPY . /rails-vue
+COPY . /app
 
 RUN yarn install --check-files
 RUN bundle exec rails webpacker:compile
